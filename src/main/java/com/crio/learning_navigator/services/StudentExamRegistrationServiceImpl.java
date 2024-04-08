@@ -2,9 +2,11 @@ package com.crio.learning_navigator.services;
 
 import com.crio.learning_navigator.entities.Exam;
 import com.crio.learning_navigator.entities.Student;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class StudentExamRegistrationServiceImpl implements StudentExamRegistrationService {
     @Override
     public Student registerStudentForExam(Student student, Exam exam) {

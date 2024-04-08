@@ -1,8 +1,12 @@
 package com.crio.learning_navigator.controllers;
 
 import com.crio.learning_navigator.DTOs.SubjectRequestDTO;
+import com.crio.learning_navigator.entities.Student;
 import com.crio.learning_navigator.entities.Subject;
+import com.crio.learning_navigator.exceptions.StudentNotEnrolledForSubjectException;
+import com.crio.learning_navigator.exceptions.StudentNotFoundException;
 import com.crio.learning_navigator.exceptions.SubjectNotFoundException;
+import com.crio.learning_navigator.services.StudentSubjectEnrollementService;
 import com.crio.learning_navigator.services.SubjectServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +19,14 @@ import java.util.List;
 @RequestMapping("/api/v1/subjects")
 public class SubjectController {
     private final SubjectServices subjectServices;
+    private final StudentSubjectEnrollementService studentSubjectEnrollementService;
 
     @Autowired
-    public SubjectController(SubjectServices subjectServices) {
+    public SubjectController(SubjectServices subjectServices,
+                             StudentSubjectEnrollementService
+                                     studentSubjectEnrollementService) {
         this.subjectServices = subjectServices;
+        this.studentSubjectEnrollementService = studentSubjectEnrollementService;
     }
 
     @GetMapping
@@ -37,6 +45,30 @@ public class SubjectController {
                                                        subjectRequestDTO){
         Subject subject = subjectServices.createSubject(subjectRequestDTO);
         return ResponseEntity.status(HttpStatus.OK).body(subject);
+    }
+    @PutMapping("/enroll_students_to_subject/{studentId}/{subjectId}")
+    public ResponseEntity<?> enrollStudentsToSubject(@PathVariable("studentId")Long studentId,
+                                                     @PathVariable("subjectId") Long subjecId)
+            throws SubjectNotFoundException, StudentNotFoundException {
+        Student student = studentSubjectEnrollementService
+                .enroll_student_to_subject(studentId, subjecId);
+    /*
+    Sending Student in the body to make sure Student rather than the Subject
+     */
+        return ResponseEntity.status(HttpStatus.OK).body(student);
+    }
+
+    @PutMapping("/un_enroll_students_to_subject/{studentId}/{subjectId}")
+    public ResponseEntity<?> unEnrollStudentsToSubject(@PathVariable("studentId")Long studentId,
+                                                     @PathVariable("subjectId") Long subjecId)
+            throws SubjectNotFoundException, StudentNotFoundException,
+            StudentNotEnrolledForSubjectException {
+        Student student = studentSubjectEnrollementService
+                .un_enroll_student_from_subject(studentId,subjecId);
+    /*
+    Sending Student in the body to make sure Student rather than the Subject
+     */
+        return ResponseEntity.status(HttpStatus.OK).body(student);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteSubject(@PathVariable("id") Long id)

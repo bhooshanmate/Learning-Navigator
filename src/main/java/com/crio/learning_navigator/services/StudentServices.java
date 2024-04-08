@@ -13,6 +13,7 @@ public interface StudentServices {
     public Student createStudent(StudentRequestDTO studentRequestDTO);
     public Student getStudentById(Long id) throws StudentNotFoundException;
     public List<Student> getAllStudents();
-    public Student updateStudentById(Long id,StudentRequestDTO studentRequestDTO) throws StudentNotFoundException;
+    public Student updateStudentNameById(Long id, StudentRequestDTO studentRequestDTO) throws StudentNotFoundException;
     public Student deleteStudentById(Long id) throws StudentNotFoundException;
+    public Student updateStudent(Student student);
 }

@@ -37,6 +37,11 @@ public class ExamController {
         List<Exam> allExams = examServices.findAllExams();
         return ResponseEntity.status(HttpStatus.OK).body(allExams);
     }
+//    @PutMapping("/{studentId}/{subjectId}")
+//    public ResponseEntity<?> registerStudentForExam(@PathVariable("studentId") Long studentId,
+//                                                    @PathVariable("subjectid") Long subjectId){
+//
+//    }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteExamById(@PathVariable("id") Long id) throws
             ExamNotFoundException {

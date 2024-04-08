@@ -12,6 +12,6 @@ public interface SubjectServices {
     public Subject createSubject(SubjectRequestDTO subjectRequestDTO);
     public Subject getSubjectById(Long id) throws SubjectNotFoundException;
     public List<Subject> getAllSubject();
-    public Subject updateSubjectById(Long id);
+    public Subject updateSubject(Subject subject);
     public Subject deleteSubjectById(Long id) throws SubjectNotFoundException;
 }
