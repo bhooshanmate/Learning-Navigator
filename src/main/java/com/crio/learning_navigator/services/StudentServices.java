@@ -2,7 +2,6 @@ package com.crio.learning_navigator.services;
 
 import com.crio.learning_navigator.DTOs.StudentRequestDTO;
 import com.crio.learning_navigator.entities.Student;
-import com.crio.learning_navigator.exceptions.DuplicateStudentException;
 import com.crio.learning_navigator.exceptions.StudentNotFoundException;
 import org.springframework.stereotype.Service;
 

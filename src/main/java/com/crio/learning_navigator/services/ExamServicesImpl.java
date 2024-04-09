@@ -59,4 +59,9 @@ public class ExamServicesImpl implements ExamServices {
         log.info("Exam with ID {} deleted successfully!",id);
         return examById;
     }
+
+    @Override
+    public Exam udpateExam(Exam exam) {
+        return examRepository.save(exam);
+    }
 }
